@@ -1,10 +1,28 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express") // aqui estou iniciando o express
+const router = express.Router() // aqui estou configurando a primeira parte da rota
+const { v4: uuidv4 } = require('uuid')
 
+app.use(express.json())//tratando as requisições; a partir disso elas tambem estarão no json
 
-const app = express()
-const porta = 3333
+const app = express() // aqui estou iniciando o app
+const porta = 3333 // aqui estou criando a porta
 
+const mulheres = [ //aqui estou criando lista inicial de mulheres
+    {
+        id: '1',
+        nome: 'Simara Conceição',
+        imagem: 'https://github.com/simaraconceicao.png',
+        minibio: 'Desenvolvedora e Instrutora'
+    },
+    {
+        id: '2',
+        nome: 'Iana Chan',
+        imagem: 'https://bit.ly/33CXBqP',
+        minibio: 'Fundora da Programaria'
+    }
+]
+
+//FUNÇÃO GET
 function mostraMulher(request, response) {
     response.json({       // uma forma de enviar pela internet, várias informaçoes organizadas, um objeto; no send, apenas uma info
         nome: 'Ana Beatriz Monteiro',
@@ -13,9 +31,25 @@ function mostraMulher(request, response) {
     })
 }
 
+//FUNÇÃO POST
+function criaMulher(request, response) {
+    const novaMulher = {
+        id: uuidv4(),
+        nome: request.body.nome, //request (dentro da requisição); body (quando a pessoa preencher -o corpo-)
+        imagem: request.body.imagem,
+        minibio: request.body.minibio
+    }
+
+    mulheres.push(novaMulher)
+
+    response.json(mulheres)
+}
+
+//FUNÇÃO PORTA
 function mostraPorta() {
     console.log ("Servidor criado e rodando na porta", porta)
 }
 
-app.use(router.get('/mulheres', mostraMulher))
-app.listen(porta, mostraPorta)
+app.use(router.get('/mulheres', mostraMulher)) //configurei rota GET /mulheres
+app.use(router.post('/mulheres', criaMulher)) // configurei rota POST /mulheres 
+app.listen(porta, mostraPorta) // servidor ouvindo a porta
