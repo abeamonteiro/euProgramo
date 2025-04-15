@@ -45,8 +45,15 @@ caso não é o nosso código que vai chamar a função mostraPorta, é o servido
 quando estiver funcionando. E o resultado esperado é a mensagem “servidor criado e rodando na
 porta 3333”."
 
-## Criando o GET
+## Resumo de conceitos:
 
-=======
-# 2proj-back-end
->>>>>>> 4ab0ebb0fa2e6b9d2690a12f32eec73ebe226904
+![alt text](image.png)
+
+# Diferença entre API e CRUD
+
+![alt text](image-1.png)
+
+# Comparação de métodos:
+
+![alt text](image-2.png)
+
