@@ -2,9 +2,8 @@ const express = require("express") // aqui estou iniciando o express
 const router = express.Router() // aqui estou configurando a primeira parte da rota
 const { v4: uuidv4 } = require('uuid')
 
-app.use(express.json())//tratando as requisições; a partir disso elas tambem estarão no json
-
 const app = express() // aqui estou iniciando o app
+app.use(express.json()) //tratando as requisições; a partir disso elas tambem estarão no json
 const porta = 3333 // aqui estou criando a porta
 
 const mulheres = [ //aqui estou criando lista inicial de mulheres
@@ -45,11 +44,40 @@ function criaMulher(request, response) {
     response.json(mulheres)
 }
 
+//FUNÇÃO PATCH
+function corrigeMulher(request, response) {
+    function encontraMulher(mulher) {
+        if (mulher.id === request.params.id) {
+            return mulher 
+        }
+
+    }
+
+    const mulherEncontrada = mulheres.find(encontraMulher)
+
+    if (request.body.nome) {
+        mulherEncontrada.nome = request.body.nome
+    }
+
+    if (request.body.minibio) {
+        mulherEncontrada.minibio = request.body.minibio
+    }
+
+    if (request.body.imagem) {
+        mulherEncontrada.imagem = request.body.imagem
+    }
+
+    response.json(mulheres)
+}
+
+//ROTAS
+app.use(router.get('/mulheres', mostraMulher)) //configurei rota GET /mulheres
+app.use(router.post('/mulheres', criaMulher)) // configurei rota POST /mulheres 
+app.use(router.patch('/mulheres/:id', corrigeMulher)) //configurei rota PATH /mulheres/:id
+
 //FUNÇÃO PORTA
 function mostraPorta() {
     console.log ("Servidor criado e rodando na porta", porta)
 }
 
-app.use(router.get('/mulheres', mostraMulher)) //configurei rota GET /mulheres
-app.use(router.post('/mulheres', criaMulher)) // configurei rota POST /mulheres 
 app.listen(porta, mostraPorta) // servidor ouvindo a porta
