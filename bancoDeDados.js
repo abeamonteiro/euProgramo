@@ -1,5 +1,6 @@
 const mongoose = require('mongoose') //trazendo o pacote mongoose
-require('dotenv').config(MONGO_URL)
+require('dotenv').config()
+
     async function conectaBanco() { //função assíncrona (async/await)
         try { //tente isto: (try/catch)
             console.log('Conexão com o banco de dados iniciou')
